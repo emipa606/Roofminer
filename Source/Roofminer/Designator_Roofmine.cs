@@ -14,7 +14,7 @@ public class Designator_Roofmine : Designator_Mine
         defaultDesc = "DesignatorRoofmineDesc".Translate();
     }
 
-    public override int DraggableDimensions => 0;
+    public override DrawStyleCategoryDef DrawStyleCategory => DrawStyleCategoryDefOf.Orders;
 
     public override void DesignateSingleCell(IntVec3 loc)
     {
