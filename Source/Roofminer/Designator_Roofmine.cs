@@ -31,46 +31,37 @@ public class Designator_Roofmine : Designator_Mine
 
         while (locQueue.Count > 0 && numDesignated < 1201)
         {
-            // Log.Message("Deqeueing " + loc.ToString());
             loc = locQueue.Dequeue();
 
-            // Log.Message("getting locThing");
             Thing locThing = loc.GetFirstMineable(Map);
-            // Log.Message("checking locThing==null");
             if (locThing == null)
             {
                 continue;
             }
 
-            // Log.Message("checking CanDesignateThing");
             if (!CanDesignateThing(locThing).Accepted)
             {
                 continue;
             }
 
-            // Log.Message("getting locRoof");
             var locRoof = Map.roofGrid.RoofAt(loc);
-            // Log.Message("checking one null roof");
             if (locRoof == null && originalLocRoof != null ||
                 locRoof != null && originalLocRoof == null)
             {
                 continue;
             }
 
-            // Log.Message("checking roof defNames match");
             if (locRoof != null &&
-                locRoof.defName != originalLocRoof.defName)
+                locRoof.defName != originalLocRoof?.defName)
             {
                 continue;
             }
 
-            // Log.Message("checking DesignationAt");
             if (Map.designationManager.DesignationAt(loc, DesignationDefOf.Mine) != null)
             {
                 continue;
             }
 
-            // Log.Message("Designating " + loc.ToString());
             base.DesignateSingleCell(loc);
             numDesignated++;
 
@@ -86,7 +77,6 @@ public class Designator_Roofmine : Designator_Mine
                     continue;
                 }
 
-                // Log.Message("Enqueueing " + newLoc.ToString());
                 locQueue.Enqueue(newLoc);
                 locQueued.Add(newLoc);
             }
